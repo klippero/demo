@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejemplo de código en HTML</title>
+    <title>Ejemplo de Cargar Código Python</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,33 +15,29 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             overflow-x: auto;
+            max-width: 600px;
+            margin: 20px auto;
         }
         code {
             font-family: "Courier New", Courier, monospace;
-            color: #d63384;
+            color: #006400;
         }
     </style>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
 </head>
 <body>
-    <h1>Ejemplo de Código en HTML</h1>
+    <h1 style="text-align: center;">Ejemplo de Código Python</h1>
 
-    <p>A continuación, se muestra un ejemplo de código en HTML:</p>
+    <!-- Aquí se mostrará el contenido del archivo Python -->
+    <pre><code id="codigo-python"></code></pre>
 
-    <pre><code class="language-html">
-        &lt;!DOCTYPE html&gt;
-        &lt;html lang=&quot;es&quot;&gt;
-          &lt;head&gt;
-            &lt;meta charset=&quot;UTF-8&quot;&gt;
-            &lt;title&gt;Ejemplo de HTML&lt;/title&gt;
-          &lt;/head&gt;
-          &lt;body&gt;
-            &lt;h1&gt;Hola Mundo&lt;/h1&gt;
-            &lt;p&gt;Este es un ejemplo de HTML.&lt;/p&gt;
-          &lt;/body&gt;
-        &lt;/html&gt;
-        </code></pre>
-        
+    <script>
+        // Función para cargar el archivo de código Python
+        fetch('codigo.py')  // Ruta al archivo 'codigo.py'
+            .then(response => response.text())  // Convertir la respuesta a texto
+            .then(data => {
+                document.getElementById('codigo-python').textContent = data;  // Insertar el contenido en la etiqueta <code>
+            })
+            .catch(error => console.error('Error al cargar el archivo Python:', error));
+    </script>
 </body>
 </html>
