@@ -3,22 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cargar código .py con Prism.js (Estilo GitHub)</title>
+    <title>Cargar código .py con botón de copiar (Estilo GitHub)</title>
     <!-- Tema de GitHub para Prism -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-ghcolors.min.css" rel="stylesheet" />
     <!-- Prism JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <!-- Componente de Python -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <!-- Estilos para el botón de copiar -->
+    <style>
+        .code-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        .copy-button:active {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Código Python cargado desde un archivo externo</h1>
+    <h1>Código Python cargado desde un archivo externo con botón de copiar</h1>
 
-    <!-- Contenedor del código Python -->
-    <pre><code id="codigo-python" class="language-python"></code></pre>
+    <!-- Contenedor para el bloque de código y el botón de copiar -->
+    <div class="code-container">
+        <button class="copy-button" onclick="copiarCodigo()">Copiar</button>
+        <pre><code id="codigo-python" class="language-python"></code></pre>
+    </div>
 
-    <!-- JavaScript para cargar el archivo .py -->
+    <!-- JavaScript para cargar el archivo .py y habilitar el botón de copiar -->
     <script>
         // Ruta al archivo Python
         const archivoPy = 'codigo.py';
@@ -34,6 +59,23 @@
                 Prism.highlightAll();
             })
             .catch(error => console.error('Error al cargar el archivo:', error));
+
+        // Función para copiar el contenido del código
+        function copiarCodigo() {
+            // Seleccionar el código dentro del bloque
+            const codigo = document.getElementById('codigo-python').textContent;
+            // Crear un área de texto temporal para copiar el texto
+            const textArea = document.createElement('textarea');
+            textArea.value = codigo;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            // Cambiar el texto del botón temporalmente
+            const button = document.querySelector('.copy-button');
+            button.textContent = 'Copiado';
+            setTimeout(() => button.textContent = 'Copiar', 2000);
+        }
     </script>
 
 </body>
