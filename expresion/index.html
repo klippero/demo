@@ -3,85 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejemplo Avanzado: Código Python con Copiar y Resaltado</title>
-    
-    <!-- Estilos de Prism.js para resaltado de sintaxis -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-        }
-        .code-container {
-            position: relative;
-            display: inline-block;
-            max-width: 600px;
-            margin: 20px auto;
-        }
-        pre {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            overflow-x: auto;
-            max-width: 600px;
-        }
-        /* Estilo del botón copiar */
-        .copy-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 3px;
-            font-size: 12px;
-        }
-        .copy-button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>Cargar código .py con Prism.js (Estilo GitHub)</title>
+    <!-- Tema de GitHub para Prism -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-ghcolors.min.css" rel="stylesheet" />
+    <!-- Prism JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <!-- Componente de Python -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </head>
 <body>
-    <h1>Ejemplo de Código Python con Resaltado y Botón de Copiar</h1>
 
-    <!-- Contenedor del código con el botón para copiar -->
-    <div class="code-container">
-        <pre><code class="language-python" id="codigo-python"></code></pre>
-        <button class="copy-button" onclick="copiarCodigo()">Copiar código</button>
-    </div>
+    <h1>Código Python cargado desde un archivo externo</h1>
 
-    <!-- Script para cargar Prism.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js"></script>
-    
-    <!-- Script para cargar el archivo de código Python -->
+    <!-- Contenedor del código Python -->
+    <pre><code id="codigo-python" class="language-python"></code></pre>
+
+    <!-- JavaScript para cargar el archivo .py -->
     <script>
-        // Función para cargar el contenido del archivo 'codigo.py'
-        fetch('codigo.py')
-            .then(response => response.text())  // Convertir la respuesta a texto
-            .then(data => {
-                document.getElementById('codigo-python').textContent = data;  // Insertar el contenido en el <code>
-                Prism.highlightAll();  // Aplicar resaltado de Prism.js
-            })
-            .catch(error => console.error('Error al cargar el archivo Python:', error));
+        // Ruta al archivo Python
+        const archivoPy = 'codigo.py';
 
-        // Función para copiar el código al portapapeles
-        function copiarCodigo() {
-            // Crear un área de texto temporal para copiar el código
-            const codigo = document.getElementById('codigo-python').textContent;
-            const areaTemporal = document.createElement('textarea');
-            areaTemporal.value = codigo;
-            document.body.appendChild(areaTemporal);
-            areaTemporal.select();
-            document.execCommand('copy');
-            document.body.removeChild(areaTemporal);
-            
-            // Confirmación visual
-            alert('¡Código copiado al portapapeles!');
-        }
+        // Función para cargar y mostrar el contenido del archivo
+        fetch(archivoPy)
+            .then(response => response.text())
+            .then(data => {
+                // Insertar el código en el contenedor
+                document.getElementById('codigo-python').textContent = data;
+
+                // Reprocesar el bloque de código para resaltarlo con Prism
+                Prism.highlightAll();
+            })
+            .catch(error => console.error('Error al cargar el archivo:', error));
     </script>
+
 </body>
 </html>
