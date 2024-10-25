@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cargar código .py con botón de copiar (Estilo GitHub)</title>
+    <title>Cargar código desde GitHub (Prism.js)</title>
     <!-- Tema de GitHub para Prism -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-ghcolors.min.css" rel="stylesheet" />
     <!-- Prism JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <!-- Componente de Python -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <!-- Componente para Ruby -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
     <!-- Estilos para el botón de copiar -->
     <style>
         .code-container {
@@ -35,25 +35,25 @@
 </head>
 <body>
 
-    <h1>Código Python cargado desde un archivo externo con botón de copiar</h1>
+    <h1>Código Ruby desde GitHub con botón de copiar</h1>
 
     <!-- Contenedor para el bloque de código y el botón de copiar -->
     <div class="code-container">
         <button class="copy-button" onclick="copiarCodigo()">Copiar</button>
-        <pre><code id="codigo-python" class="language-python"></code></pre>
+        <pre><code id="codigo-github" class="language-ruby"></code></pre>
     </div>
 
-    <!-- JavaScript para cargar el archivo .py y habilitar el botón de copiar -->
+    <!-- JavaScript para cargar el archivo de GitHub y habilitar el botón de copiar -->
     <script>
-        // Ruta al archivo Python
-        const archivoPy = 'codigo.py';
+        // URL cruda del archivo de GitHub
+        const archivoGitHub = 'https://raw.githubusercontent.com/CoderDojoMaj/recorridos/main/ruby/temas/13.rb';
 
-        // Función para cargar y mostrar el contenido del archivo
-        fetch(archivoPy)
+        // Función para cargar y mostrar el contenido del archivo de GitHub
+        fetch(archivoGitHub)
             .then(response => response.text())
             .then(data => {
                 // Insertar el código en el contenedor
-                document.getElementById('codigo-python').textContent = data;
+                document.getElementById('codigo-github').textContent = data;
 
                 // Reprocesar el bloque de código para resaltarlo con Prism
                 Prism.highlightAll();
@@ -63,7 +63,7 @@
         // Función para copiar el contenido del código
         function copiarCodigo() {
             // Seleccionar el código dentro del bloque
-            const codigo = document.getElementById('codigo-python').textContent;
+            const codigo = document.getElementById('codigo-github').textContent;
             // Crear un área de texto temporal para copiar el texto
             const textArea = document.createElement('textarea');
             textArea.value = codigo;
